@@ -39,7 +39,11 @@ class LinkRepository
         // If the meta helper was not successful, disable future checks and set the status to broken
         if ($linkMeta['success'] === false) {
             $data['check_disabled'] = true;
-            $data['status'] = Link::STATUS_BROKEN;
+            if (isset($data['tags'])) {
+                $data['status'] = Link::STATUS_OK;
+            } else {
+                $data['status'] = Link::STATUS_BROKEN;
+            }
         }
 
         $link = Link::create($data);

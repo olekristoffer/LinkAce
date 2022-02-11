@@ -35,6 +35,9 @@ class HtmlMeta
     {
         $this->url = $url;
         $this->buildFallback();
+        if(env('SKIP_META_GENERATE')){
+            return $this->fallback;
+        }
 
         try {
             $this->meta = \Kovah\HtmlMeta\Facades\HtmlMeta::forUrl($url)->getMeta();
